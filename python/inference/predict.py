@@ -37,33 +37,45 @@ transform = transforms.Compose([
 # Model
 # ============================================================
 
-model = models.mobilenet_v3_small(
-    weights=None
-)
+model = None
 
-num_features = model.classifier[-1].in_features
+def load_model():
 
-model.classifier[-1] = nn.Linear(
-    num_features,
-    len(CLASS_NAMES)
-)
+    global model
 
-model.load_state_dict(
-    torch.load(
-        MODEL_PATH,
-        map_location=DEVICE
+    if model is not None:
+        return model
+
+    model = models.mobilenet_v3_small(
+        weights=None
     )
-)
 
-model = model.to(DEVICE)
-model.eval()
+    num_features = model.classifier[-1].in_features
 
+    model.classifier[-1] = nn.Linear(
+        num_features,
+        len(CLASS_NAMES)
+    )
+
+    model.load_state_dict(
+        torch.load(
+            MODEL_PATH,
+            map_location=DEVICE
+        )
+    )
+
+    model = model.to(DEVICE)
+    model.eval()
+
+    return model
 
 # ============================================================
 # Crop Stage Identification
 # ============================================================
 
 def identify_crop_stage(image_path):
+    
+    model = load_model()
 
     image = Image.open(
         image_path
