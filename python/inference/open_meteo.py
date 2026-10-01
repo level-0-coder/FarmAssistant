@@ -76,7 +76,7 @@ def get_forecast(latitude: float, longitude: float, hours: int = 12):
     response.raise_for_status()
 
     data = response.json()
-    print(data)
+    # print(data)
 
     hourly = data["hourly"]
 
