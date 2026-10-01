@@ -1,0 +1,216 @@
+/* ==========================================================================
+   Farm Assistant - Smart Solar Irrigation
+   Main Stylesheet
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Base Styles & Resets
+   -------------------------------------------------------------------------- */
+@layer base {
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        overscroll-behavior: none;
+    }
+
+    main > :first-child {
+        margin-top: 0 !important;
+    }
+
+    main > :last-child {
+        margin-bottom: 0 !important;
+    }
+}
+
+/* Hide scrollbar across browsers */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Continuous Day / Night & Hero Telemetry Animations
+   -------------------------------------------------------------------------- */
+@keyframes skyCycle {
+    0%,
+    100% {
+        background: linear-gradient(180deg, #bae6fd 0%, #fef3c7 60%, #ecfdf5 100%);
+    }
+
+    35% {
+        background: linear-gradient(180deg, #38bdf8 0%, #fed7aa 65%, #d1fae5 100%);
+    }
+
+    50% {
+        background: linear-gradient(180deg, #f97316 0%, #475569 55%, #1e293b 100%);
+    }
+
+    70%,
+    85% {
+        background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 60%, #064e3b 100%);
+    }
+}
+
+@keyframes orbitSun {
+    0% {
+        transform: rotate(-35deg) translate(-140px) rotate(35deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 1;
+        filter: drop-shadow(0 0 16px rgba(251, 191, 36, 0.9));
+    }
+
+    55% {
+        transform: rotate(145deg) translate(-140px) rotate(-145deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: rotate(210deg) translate(-140px) rotate(-210deg);
+        opacity: 0;
+    }
+}
+
+@keyframes orbitMoon {
+    0%,
+    45% {
+        opacity: 0;
+        transform: rotate(-30deg) translate(-140px) rotate(30deg);
+    }
+
+    55% {
+        opacity: 0.2;
+        transform: rotate(10deg) translate(-140px) rotate(-10deg);
+    }
+
+    70% {
+        opacity: 1;
+        transform: rotate(70deg) translate(-140px) rotate(-70deg);
+        filter: drop-shadow(0 0 10px rgba(224, 242, 254, 0.8));
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: rotate(150deg) translate(-140px) rotate(-150deg);
+    }
+}
+
+@keyframes solarGlow {
+    0%,
+    100% {
+        filter: drop-shadow(0 0 2px rgba(56, 189, 248, 0.3));
+    }
+
+    30%,
+    45% {
+        filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.95)) brightness(1.2);
+    }
+
+    60%,
+    90% {
+        filter: drop-shadow(0 0 0px transparent);
+    }
+}
+
+@keyframes waterFlow {
+    0% {
+        stroke-dashoffset: 60;
+        opacity: 0.9;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        opacity: 0.85;
+    }
+}
+
+@keyframes cropSway {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(3.5deg) skewX(2deg);
+    }
+}
+
+@keyframes cropSwayAlt {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-4deg) skewX(-2.5deg);
+    }
+}
+
+@keyframes pulseTelemetry {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.04);
+        color: #04873b;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Animation Helper Classes
+   -------------------------------------------------------------------------- */
+.anim-sky-cycle {
+    animation: skyCycle 16s ease-in-out infinite;
+}
+
+.anim-sun {
+    transform-origin: 220px 210px;
+    animation: orbitSun 16s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.anim-moon {
+    transform-origin: 220px 210px;
+    animation: orbitMoon 16s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.anim-solar-panel {
+    animation: solarGlow 16s ease-in-out infinite;
+}
+
+.anim-water-stream {
+    stroke-dasharray: 6 5;
+    animation: waterFlow 1.8s linear infinite;
+}
+
+.anim-crop-1 {
+    transform-origin: bottom center;
+    animation: cropSway 3.2s ease-in-out infinite;
+}
+
+.anim-crop-2 {
+    transform-origin: bottom center;
+    animation: cropSwayAlt 2.8s ease-in-out infinite;
+}
+
+.anim-telemetry-pulse {
+    animation: pulseTelemetry 3s ease-in-out infinite;
+}

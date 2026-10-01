@@ -1,0 +1,73 @@
+{
+    "latitude": 40.710335,
+    "longitude": -73.99308,
+    "generationtime_ms": 0.064849853515625,
+    "utc_offset_seconds": -14400,
+    "timezone": "America/New_York",
+    "timezone_abbreviation": "GMT-4",
+    "elevation": 32.0,
+    "hourly_units": {
+        "time": "iso8601",
+        "precipitation": "mm",
+        "precipitation_probability": "%",
+        "shortwave_radiation": "W/m²"
+    },
+    "hourly": {
+        "time": [
+            "2026-09-27T17: 00",
+            "2026-09-27T18: 00",
+            "2026-09-27T19: 00",
+            "2026-09-27T20: 00",
+            "2026-09-27T21: 00",
+            "2026-09-27T22: 00",
+            "2026-09-27T23: 00",
+            "2026-09-28T00: 00",
+            "2026-09-28T01: 00",
+            "2026-09-28T02: 00",
+            "2026-09-28T03: 00",
+            "2026-09-28T04: 00"
+        ],
+        "precipitation": [
+            2.5,
+            2.9,
+            0.7,
+            0.4,
+            0.7,
+            2.5,
+            0.7,
+            2.9,
+            2.9,
+            0.4,
+            1.4,
+            1.8
+        ],
+        "precipitation_probability": [
+            76,
+            72,
+            68,
+            75,
+            80,
+            80,
+            78,
+            74,
+            78,
+            77,
+            75,
+            75
+        ],
+        "shortwave_radiation": [
+            54.0,
+            31.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ]
+    }
+}

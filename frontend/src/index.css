@@ -1,0 +1,299 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #FFFDF7;
+    color: #334155;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  /* Focus ring for accessibility */
+  :focus-visible {
+    outline: 2px solid #2E9E4F;
+    outline-offset: 2px;
+  }
+
+  /* Reduce motion globally */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Custom scrollbar */
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+  }
+
+  /* Animate-in utility class */
+  .animate-in {
+    animation: slideIn 200ms ease-out forwards;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Leaflet map z-index fix in modal contexts */
+.leaflet-container {
+  z-index: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Recharts default text color fix */
+.recharts-text {
+  fill: #64748B;
+}
+
+/* Select box arrow */
+select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1.25em;
+  padding-right: 2.5rem;
+}
+
+/* Pulse glow keyframes (AI filled fields) */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.6); }
+  50% { box-shadow: 0 0 0 8px rgba(251, 191, 36, 0); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out 3;
+}
+
+/* Pulse subtle for buttons */
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.02); }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Material Symbols icon utility */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* --------------------------------------------------------------------------
+   Landing Page Continuous Day / Night & Hero Telemetry Animations
+   -------------------------------------------------------------------------- */
+@keyframes skyCycle {
+  0%, 100% {
+    background: linear-gradient(180deg, #bae6fd 0%, #fef3c7 60%, #ecfdf5 100%);
+  }
+  35% {
+    background: linear-gradient(180deg, #38bdf8 0%, #fed7aa 65%, #d1fae5 100%);
+  }
+  50% {
+    background: linear-gradient(180deg, #f97316 0%, #475569 55%, #1e293b 100%);
+  }
+  70%, 85% {
+    background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 60%, #064e3b 100%);
+  }
+}
+
+@keyframes orbitSun {
+  0% {
+    transform: rotate(-35deg) translate(-140px) rotate(35deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 1;
+    filter: drop-shadow(0 0 16px rgba(251, 191, 36, 0.9));
+  }
+  55% {
+    transform: rotate(145deg) translate(-140px) rotate(-145deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(210deg) translate(-140px) rotate(-210deg);
+    opacity: 0;
+  }
+}
+
+@keyframes orbitMoon {
+  0%, 45% {
+    opacity: 0;
+    transform: rotate(-30deg) translate(-140px) rotate(30deg);
+  }
+  55% {
+    opacity: 0.2;
+    transform: rotate(10deg) translate(-140px) rotate(-10deg);
+  }
+  70% {
+    opacity: 1;
+    transform: rotate(70deg) translate(-140px) rotate(-70deg);
+    filter: drop-shadow(0 0 10px rgba(224, 242, 254, 0.8));
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(150deg) translate(-140px) rotate(-150deg);
+  }
+}
+
+@keyframes solarGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px rgba(56, 189, 248, 0.3));
+  }
+  30%, 45% {
+    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.95)) brightness(1.2);
+  }
+  60%, 90% {
+    filter: drop-shadow(0 0 0px transparent);
+  }
+}
+
+@keyframes waterFlow {
+  0% {
+    stroke-dashoffset: 60;
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.85;
+  }
+}
+
+@keyframes cropSway {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(3.5deg) skewX(2deg);
+  }
+}
+
+@keyframes cropSwayAlt {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-4deg) skewX(-2.5deg);
+  }
+}
+
+@keyframes pulseTelemetry {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+    color: #04873b;
+  }
+}
+
+.anim-sky-cycle {
+  animation: skyCycle 16s ease-in-out infinite;
+}
+
+.anim-sun {
+  transform-origin: 220px 210px;
+  animation: orbitSun 16s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.anim-moon {
+  transform-origin: 220px 210px;
+  animation: orbitMoon 16s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.anim-solar-panel {
+  animation: solarGlow 16s ease-in-out infinite;
+}
+
+.anim-water-stream {
+  stroke-dasharray: 6 5;
+  animation: waterFlow 1.8s linear infinite;
+}
+
+.anim-crop-1 {
+  transform-origin: bottom center;
+  animation: cropSway 3.2s ease-in-out infinite;
+}
+
+.anim-crop-2 {
+  transform-origin: bottom center;
+  animation: cropSwayAlt 2.8s ease-in-out infinite;
+}
+
+.anim-telemetry-pulse {
+  animation: pulseTelemetry 3s ease-in-out infinite;
+}
+
