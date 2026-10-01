@@ -329,7 +329,8 @@ def get_analytics(
     forecast_data = get_forecast(
         farm["location"]["latitude"], 
         farm["location"]["longitude"],
-        hours= 2 * hours_till_TAW
+        # hours= 2 * hours_till_TAW
+        hours= hours_till_TAW
     )
 
     # histogram of water that can be pumped
