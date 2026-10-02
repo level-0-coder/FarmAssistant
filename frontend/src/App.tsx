@@ -11,11 +11,19 @@ import { isAuthenticated } from './api/auth';
 import { useProfile } from './state/ProfileProvider';
 import { Loader2 } from 'lucide-react';
 
-// Special wrapper for the profile page that handles onboarding vs edit mode
+// Special wrapper for the profile page that handles onboarding vs edit mode.
+// Also guards the route reactively — isAuthenticated() is called inside a
+// component so it re-evaluates on every render instead of being frozen at
+// the moment AppRoutes first mounts.
 function ProfileRoute() {
   const { isOnboarding, status } = useProfile();
 
-  if (status === 'loading') {
+  // Not authenticated → go to landing
+  if (!isAuthenticated()) {
+    return <Navigate to="/" replace />;
+  }
+
+  if (status === 'loading' || status === 'idle') {
     return (
       <div className="min-h-screen bg-warm flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-forest" />
@@ -26,24 +34,20 @@ function ProfileRoute() {
   return <ProfilePage mode={isOnboarding ? 'onboarding' : 'edit'} />;
 }
 
+// Reactive landing-page guard: redirects authenticated users to dashboard.
+// Defined as a component so isAuthenticated() is evaluated on every render.
+function LandingOrDashboard() {
+  return isAuthenticated() ? <Navigate to="/dashboard" replace /> : <LandingPage />;
+}
+
 function AppRoutes() {
   return (
     <Routes>
       {/* Public routes */}
-      <Route
-        path="/"
-        element={
-          isAuthenticated() ? <Navigate to="/dashboard" replace /> : <LandingPage />
-        }
-      />
+      <Route path="/" element={<LandingOrDashboard />} />
 
       {/* Profile can be accessed even during onboarding */}
-      <Route
-        path="/profile"
-        element={
-          isAuthenticated() ? <ProfileRoute /> : <Navigate to="/" replace />
-        }
-      />
+      <Route path="/profile" element={<ProfileRoute />} />
 
       {/* Protected routes */}
       <Route

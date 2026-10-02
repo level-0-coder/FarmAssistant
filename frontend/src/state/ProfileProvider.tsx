@@ -62,6 +62,13 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
     fetchProfileData();
   }, [fetchProfileData]);
 
+  // Re-fetch when setToken fires 'fa:login' (e.g. after login without a full page reload)
+  useEffect(() => {
+    const handleLogin = () => fetchProfileData();
+    window.addEventListener('fa:login', handleLogin);
+    return () => window.removeEventListener('fa:login', handleLogin);
+  }, [fetchProfileData]);
+
   const refreshProfile = useCallback(async () => {
     await fetchProfileData();
   }, [fetchProfileData]);

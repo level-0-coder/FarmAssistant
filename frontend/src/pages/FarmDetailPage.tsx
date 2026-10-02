@@ -205,7 +205,8 @@ const AISummarySection: React.FC<{ analytics: AnalyticsResponse; farm: Farm; lan
   const [summary, setSummary] = useState<FarmSummaryResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const cacheKey = `ai_summary_${farm.farm_id}_${analytics.current.timestamp}`;
+  // v2 suffix ensures stale responses with the old prompt format are not served from cache
+  const cacheKey = `ai_summary_v2_${farm.farm_id}_${analytics.current.timestamp}`;
 
   const generateSummary = useCallback(async () => {
     setLoading(true);
@@ -284,11 +285,13 @@ const AISummarySection: React.FC<{ analytics: AnalyticsResponse; farm: Farm; lan
     insufficient_data: 'bg-slate-50 border-slate-200 text-slate-600',
   };
 
-  const priorityIcons = {
+  const priorityIcons: Record<string, React.ReactNode> = {
     high: <span className="w-1.5 h-1.5 rounded-full bg-critical flex-shrink-0 mt-1.5" />,
     medium: <span className="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0 mt-1.5" />,
     low: <span className="w-1.5 h-1.5 rounded-full bg-slate-400 flex-shrink-0 mt-1.5" />,
   };
+  const getPriorityIcon = (priority: string) =>
+    priorityIcons[priority] ?? priorityIcons['medium'];
 
   return (
     <div className="bg-white rounded-3xl p-6 shadow-card border border-slate-100">
@@ -353,7 +356,7 @@ const AISummarySection: React.FC<{ analytics: AnalyticsResponse; farm: Farm; lan
               <div className="space-y-2">
                 {summary.actions.map((action, i) => (
                   <div key={i} className="flex items-start gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                    {priorityIcons[action.priority]}
+                    {getPriorityIcon(action.priority)}
                     <div>
                       <p className="text-xs font-bold text-slate-800">{action.title}</p>
                       <p className="text-[11px] text-slate-500 mt-0.5">{action.detail}</p>

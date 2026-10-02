@@ -237,11 +237,23 @@ export async function callFarmSummary(compactPayload: any, preferredLanguage: st
     const cleaned = cleanJsonText(responseText);
     const parsed = JSON.parse(cleaned);
 
+    // Normalize actions: handle both array-of-objects and unexpected shapes
+    const rawActions = parsed.actions;
+    const normalizedActions = Array.isArray(rawActions)
+      ? rawActions
+          .filter((a: any) => a && typeof a === 'object')
+          .map((a: any) => ({
+            priority: (['high', 'medium', 'low'].includes(a.priority) ? a.priority : 'medium') as 'high' | 'medium' | 'low',
+            title: a.title || a.action || a.name || 'Action',
+            detail: a.detail || a.description || a.body || '',
+          }))
+      : [];
+
     return {
       status: parsed.status || 'irrigate_soon',
       headline: parsed.headline || 'Optimal solar irrigation opportunity upcoming',
       summary: parsed.summary || 'Crop soil moisture has approached the readily available water threshold. Solar radiation is peak tomorrow midday.',
-      actions: Array.isArray(parsed.actions) ? parsed.actions : [],
+      actions: normalizedActions,
       watch_outs: Array.isArray(parsed.watch_outs) ? parsed.watch_outs : [],
       window_note: parsed.window_note,
     };

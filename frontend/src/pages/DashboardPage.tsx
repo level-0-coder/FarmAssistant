@@ -232,7 +232,8 @@ export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
   const { farms, status, error, refreshProfile } = useProfile();
 
-  // Profile status loading skeleton
+  // Profile status loading skeleton — ProfileProvider initialises as 'loading'
+  // immediately when a token exists, so this correctly covers the first render.
   if (status === 'loading') {
     return (
       <AppShell breadcrumbs={[{ label: 'Dashboard' }]}>

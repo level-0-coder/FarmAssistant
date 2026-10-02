@@ -9,6 +9,9 @@ export function getToken(): string | null {
 export function setToken(token: string): void {
   if (token) {
     localStorage.setItem(TOKEN_KEY, token);
+    // Notify ProfileProvider (and any other listener) that authentication happened
+    // so they can fetch profile data without requiring a full page reload.
+    window.dispatchEvent(new Event('fa:login'));
   }
 }
 
