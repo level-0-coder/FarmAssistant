@@ -39,7 +39,7 @@ export const AIHelpSidebar: React.FC<Props> = ({
     {
       id: genId(),
       role: 'system',
-      text: `Hello! I'm your farm setup helper. Tell me about your farm in your own words — by typing or using the microphone. I'll fill in the form details for you. I can help with crop, water source, pump power, solar capacity, and more. You'll still need to draw the field boundary on the map yourself.`,
+      text: `Hello! I'm your farm setup helper. Tell me about your farm in your own words — by typing or using the microphone. I'll fill in the form details for you. I can help with crop, water source, pump power, solar capacity, soil type, irrigation method, and more! You'll still need to draw the field boundary on the map yourself.`,
       timestamp: Date.now(),
     },
   ]);

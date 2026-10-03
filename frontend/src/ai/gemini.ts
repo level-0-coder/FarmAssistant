@@ -133,6 +133,18 @@ function generateMockFormHelperResponse(
   else if (textToScan.includes('canal')) fields.water_source = 'Canal';
   else if (textToScan.includes('pond')) fields.water_source = 'Pond / farm pond';
   else if (textToScan.includes('river')) fields.water_source = 'River / stream';
+  
+  if (textToScan.includes('drip')) fields.irrigation_method = 'Drip';
+  else if (textToScan.includes('sprinkler')) fields.irrigation_method = 'Sprinkler';
+  else if (textToScan.includes('flood')) fields.irrigation_method = 'Flood / surface';
+  else if (textToScan.includes('furrow')) fields.irrigation_method = 'Furrow';
+
+  if (textToScan.includes('sandy loam')) fields.soil_type = 'Sandy loam';
+  else if (textToScan.includes('clay loam')) fields.soil_type = 'Clay loam';
+  else if (textToScan.includes('silt loam')) fields.soil_type = 'Silt loam';
+  else if (textToScan.includes('sandy') || textToScan.includes('sand')) fields.soil_type = 'Sandy';
+  else if (textToScan.includes('clay')) fields.soil_type = 'Clay';
+  else if (textToScan.includes('loam')) fields.soil_type = 'Loam';
 
   // HP extraction
   const hpMatch = textToScan.match(/(\d+(?:\.\d+)?)\s*(?:hp|horsepower)/);
